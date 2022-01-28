@@ -9,6 +9,7 @@ import HomeScreen from './screens/HomeScreen'
 import MapScreen from './screens/MapScreen'
 import EatsScreen from './screens/EatsScreen'
 import 'react-native-gesture-handler'
+import React from 'react'
 
 export default function App() {
   const Stack = createStackNavigator()

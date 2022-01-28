@@ -1,14 +1,24 @@
 import { View, SafeAreaView, Image } from 'react-native'
-import React from 'react'
+import React, { useEffect, useRef } from 'react'
 import tw from 'tailwind-react-native-classnames'
 import NavOptions from '../components/NavOptions'
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete'
 import { GOOGLE_MAPS_APIKEY } from '@env'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { setDestination, setOrigin } from '../slices/navSlice'
+import { selectOriginFill } from '../slices/fillSlice'
+import NavFavorites from '../components/NavFavorites'
 
 const HomeScreen = () => {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()
+
+  const placesRef = useRef<any>(null)
+  const originFill = useSelector(selectOriginFill)
+  useEffect(()=>{
+    if (!originFill) return;
+    placesRef.current.setAddressText(originFill)
+    placesRef.current.focus()
+  },[originFill])
 
    return (
     <SafeAreaView style={tw`bg-white h-full`}>
@@ -22,6 +32,7 @@ const HomeScreen = () => {
             uri:'https://links.papareact.com/gzs',
         }}/>
         <GooglePlacesAutocomplete 
+          ref={placesRef}
           placeholder='Where From?'
           styles={{
             container:{
@@ -53,6 +64,7 @@ const HomeScreen = () => {
       </View>
       <View style={tw`p-5`}>
         <NavOptions/>
+        <NavFavorites set='origin'/>
       </View>
     </SafeAreaView>
   );

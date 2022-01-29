@@ -5,6 +5,8 @@ import { Icon } from 'react-native-elements'
 import { useNavigation } from '@react-navigation/native'
 import { useSelector } from 'react-redux'
 import { selectTravelTimeInformation } from '../slices/navSlice';
+import 'intl'
+import 'intl/locale-data/jsonp/th'
 
 const data = [
   {
@@ -15,7 +17,7 @@ const data = [
   },{
     id:'Uber-XL-456',
     title:'Uber XL',
-    multiplier:1.2,
+    multiplier:1.4,
     image:'https://links.papareact.com/5w8',
   },{
     id:'Uber-LUX-789',
@@ -24,6 +26,8 @@ const data = [
     image:'https://links.papareact.com/7pf',
   },
 ]
+
+const SURGE_CHARGE_RATE = 1.5
 
 const RideOptionsCard = () => {
   const navigation = useNavigation()
@@ -63,8 +67,17 @@ const RideOptionsCard = () => {
               <Text style={tw`text-xl font-semibold`}>{title}</Text>
               <Text>{travelTimeInformation?.duration.text} Travel Time</Text>
             </View>
-            <Text style={tw`text-lg`}>$99</Text>
+            <Text style={tw`text-lg`}>
+              {new Intl.NumberFormat('th-TH',{
+                style:'currency',
+                currency:'THB',
+              }).format(
+                (travelTimeInformation?.duration.value * 
+                  SURGE_CHARGE_RATE * multiplier)/100
+              )}
+            </Text>
           </TouchableOpacity>
+
         )}
       />
       <View>

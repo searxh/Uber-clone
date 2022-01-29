@@ -12,17 +12,17 @@ const data = [
   {
     id:'Uber-X-123',
     title:'Uber X',
-    multiplier:1,
+    multiplier:37,
     image:'https://links.papareact.com/3pn',
   },{
     id:'Uber-XL-456',
     title:'Uber XL',
-    multiplier:1.2,
+    multiplier:44.4,
     image:'https://links.papareact.com/5w8',
   },{
     id:'Uber-LUX-789',
     title:'Uber LUX',
-    multiplier:1.75,
+    multiplier:64.75,
     image:'https://links.papareact.com/7pf',
   },
 ]
@@ -43,7 +43,7 @@ const RideOptionsCard = () => {
           <Icon name='chevron-left' type='fontawesome' />
         </TouchableOpacity>
         <Text style={tw`text-center py-5 text-xl`}>
-          Select a Ride - {travelTimeInformation?.distance.text}
+          Select a Ride - {travelTimeInformation?.distance?.text}
         </Text>
       </View>
 
@@ -65,14 +65,16 @@ const RideOptionsCard = () => {
             />
             <View style={tw`-ml-6`}>
               <Text style={tw`text-xl font-semibold`}>{title}</Text>
-              <Text>{travelTimeInformation?.duration.text} Travel Time</Text>
+              <Text>{travelTimeInformation?.duration?.text} Travel Time</Text>
             </View>
             <Text style={tw`text-lg`}>
               {new Intl.NumberFormat('th-TH',{
                 style:'currency',
                 currency:'THB',
+                minimumFractionDigits: 0,
+                maximumFractionDigits: 0,
               }).format(
-                (travelTimeInformation?.duration.value * 
+                (travelTimeInformation?.duration?.value * 
                   SURGE_CHARGE_RATE * multiplier)/100
               )}
             </Text>

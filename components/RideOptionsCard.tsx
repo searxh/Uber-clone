@@ -17,7 +17,7 @@ const data = [
   },{
     id:'Uber-XL-456',
     title:'Uber XL',
-    multiplier:1.4,
+    multiplier:1.2,
     image:'https://links.papareact.com/5w8',
   },{
     id:'Uber-LUX-789',
